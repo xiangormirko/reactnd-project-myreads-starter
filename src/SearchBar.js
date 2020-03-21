@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf'
 import * as BooksAPI from './BooksAPI'
+import * as _ from 'underscore';
 
 class SearchBar extends Component {
 
@@ -17,12 +18,19 @@ class SearchBar extends Component {
 
   updateQuery = (query) => {
     this.setState(() => ({
-      query: query.trim()
+      query
     })
     )
 
+    if (query.length ===0) {
+      this.setState(() => ({
+        books : []
+      }))
+    } else {
+    _.throttle(
     BooksAPI.search(query)
       .then((res) => {
+        console.log('search sent')
         if (res && !res.error) {
         this.setState(() => ({
           books : res
@@ -30,8 +38,11 @@ class SearchBar extends Component {
       } else {
         console.log('no response')
       }
-      })
+    }), 1000)
+    }
   }
+
+
 
   render() {
     const {query} = this.state

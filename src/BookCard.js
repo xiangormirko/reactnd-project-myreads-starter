@@ -33,7 +33,7 @@ class BookCard extends Component {
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof(book.imageLinks.thumbnail) !== 'undefined' ? book.imageLinks.thumbnail : 'none' })` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${typeof(book.imageLinks) !== "undefined" ? book.imageLinks.thumbnail : 'none' })` }}></div>
               <div className="book-shelf-changer">
                 <select onChange={this.handleChangeShelf} value={this.state.bookShelfSelection}>
                   <option value="move" disabled>Move to...</option>
